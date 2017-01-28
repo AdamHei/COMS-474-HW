@@ -9,7 +9,7 @@ def dist(p1, p2):
 
 
 # Finds the most frequently occurring class among the k-closest points to a given point
-#
+# Ties are broken arbitrarily, as numpy handles the sorting
 def knn(data, classes, point, k):
     # Array of distance between each data point and the given point
     distances = np.array([dist(point, p2) for p2 in data])
@@ -27,7 +27,6 @@ def knn(data, classes, point, k):
 
 
 if __name__ == '__main__':
-    # Training data
     d = np.array([
         [2, 3, 0],
         [2, 0, 1],
@@ -37,15 +36,12 @@ if __name__ == '__main__':
         [1, -1, 1]
     ], np.float32)
 
-    # Classes
     c = np.array(['Red', 'Red', 'Red', 'Green', 'Green', 'Red'])
 
-    # Test point
     p = np.array([0, 0, 0], np.float32)
 
-    test_k = 3
+    test_k = int(input("Enter a number for k: "))
 
-    # Predicted class
     prediction = knn(d, c, p, test_k)
 
     print prediction
