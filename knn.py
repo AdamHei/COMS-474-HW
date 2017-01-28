@@ -3,23 +3,31 @@ from collections import Counter
 import numpy as np
 
 
+# Takes in two points and returns the distance between them by calculating the norm of their difference
 def dist(p1, p2):
     return np.linalg.norm(p1 - p2)
 
 
+# Finds the most frequently occurring class among the k-closest points to a given point
+#
 def knn(data, classes, point, k):
+    # Array of distance between each data point and the given point
     distances = np.array([dist(point, p2) for p2 in data])
 
+    # Sort the indices by the distances so we can properly access their associated classes
     a = distances.argsort()
 
+    # Create a Python Counter object of the classes of the k-closest neighbors
     counter = Counter(classes[a[0:k]])
 
+    # Find the most frequently occurring class among those closest
     majority = counter.most_common(1)
 
     return majority[0][0]
 
 
 if __name__ == '__main__':
+    # Training data
     d = np.array([
         [2, 3, 0],
         [2, 0, 1],
@@ -29,10 +37,15 @@ if __name__ == '__main__':
         [1, -1, 1]
     ], np.float32)
 
-    c = np.array(['R', 'R', 'R', 'G', 'G', 'R'])
+    # Classes
+    c = np.array(['Red', 'Red', 'Red', 'Green', 'Green', 'Red'])
 
+    # Test point
     p = np.array([0, 0, 0], np.float32)
 
-    prediction = knn(d, c, p, 1)
+    test_k = 3
+
+    # Predicted class
+    prediction = knn(d, c, p, test_k)
 
     print prediction
