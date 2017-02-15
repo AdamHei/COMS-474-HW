@@ -2,11 +2,13 @@ import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.neighbors import KNeighborsClassifier
+import time
 
 from HW2.Utilities import get_x_and_y_datasets, plotter
 
 
 def knn_with_test_split(num_iterations=20):
+    start = time.time()
     data, classes = get_x_and_y_datasets()
 
     possible_ks = np.arange(1, 100, step=2)
@@ -30,6 +32,7 @@ def knn_with_test_split(num_iterations=20):
 
     mis_errors = [1 - x for x in mean_errors]
     plotter(possible_ks, mis_errors, 'K-Neighbors', 'Misclassification Rate', 'KNN with Test Split')
+    print("That took {0} seconds".format(time.time() - start))
 
 
 def knn_with_cross_fold_validation(num_iterations=1):
@@ -58,5 +61,5 @@ def knn_with_cross_fold_validation(num_iterations=1):
 
 
 if __name__ == '__main__':
-    knn_with_test_split(num_iterations=5)
-    # knn_with_cross_fold_validation()
+    # knn_with_test_split(num_iterations=50)
+    knn_with_cross_fold_validation(num_iterations=100)
