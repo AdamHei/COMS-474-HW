@@ -2,6 +2,7 @@ import random
 
 import numpy as np
 from matplotlib import pyplot as plt
+from scipy.stats import normaltest
 
 FILE_NAME = 'magic04.csv'
 
@@ -17,6 +18,16 @@ def get_x_and_y_datasets():
 
     return data, classes
     return data[0:2000], classes[0:2000]
+
+
+def test_normality():
+    # first_data, second_data, first_classes, second_classes = separate_classes()
+    data, classes = get_x_and_y_datasets()
+    results = normaltest(data, axis=0)
+    avg = results[1].mean()
+    res_str = "Data {0} normally distributed with average p-value of {1}"
+    res_str = res_str.format("is" if avg >= 0.05 else "is not", avg)
+    print(res_str)
 
 
 def separate_classes():
@@ -57,4 +68,4 @@ def plotter(x_set, y_set, x_lab, y_lab, title):
 
 
 if __name__ == '__main__':
-    separate_classes()
+    test_normality()
