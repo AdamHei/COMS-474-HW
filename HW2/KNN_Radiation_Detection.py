@@ -36,6 +36,7 @@ def knn_with_test_split(num_iterations=20):
 
 
 def knn_with_cross_fold_validation(num_iterations=1):
+    start = time.time()
     data, classes = get_x_and_y_datasets()
 
     possible_ks = np.arange(1, 100, step=2)
@@ -58,6 +59,7 @@ def knn_with_cross_fold_validation(num_iterations=1):
     inverse_errors = [1 - x for x in mean_cv_errors]
     plotter(possible_ks, inverse_errors, 'Number of Neighbors K', 'Misclassification Rate', 'KNN with Cross Fold '
                                                                                             'Validation')
+    print("That took {0} seconds".format(time.time() - start))
 
 
 if __name__ == '__main__':

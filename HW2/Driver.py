@@ -1,6 +1,7 @@
+import os.path
 import sys
 
-print(sys.path)
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from HW2.KNN_Radiation_Detection import knn_with_test_split, knn_with_cross_fold_validation
 from HW2.LDA_Radiation_Detection import lda

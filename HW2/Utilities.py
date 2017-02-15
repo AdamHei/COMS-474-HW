@@ -14,10 +14,7 @@ def get_x_and_y_datasets():
     classes = np.loadtxt(FILE_NAME, delimiter=',', usecols=[10], dtype=str)
     classes = [x[2] for x in classes]
 
-    # shuffle(data, classes)
-
     return data, classes
-    return data[0:2000], classes[0:2000]
 
 
 def test_normality():
@@ -64,7 +61,8 @@ def plotter(x_set, y_set, x_lab, y_lab, title):
     plt.xlabel(x_lab)
     plt.ylabel(y_lab)
     plt.title(title)
-    plt.show()
+    plt.savefig("/home/tesla/PycharmProjects/474-HW/HW2/{0}".format(title))
+    # plt.show()
 
 
 if __name__ == '__main__':
