@@ -1,32 +1,9 @@
 import numpy as np
-from matplotlib import pyplot as plt
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.neighbors import KNeighborsClassifier
 
-FILE_NAME = 'magic04.csv'
-
-
-def get_x_and_y_datasets():
-    arr = np.arange(0, 10)
-    data = np.loadtxt(FILE_NAME, delimiter=',', usecols=arr)
-    classes = np.loadtxt(FILE_NAME, delimiter=',', usecols=[10], dtype=str)
-    classes = [x[2] for x in classes]
-
-    return data, classes
-
-    # DELETE ME
-    lower_upper = 1000
-    upper_upper = 18020
-    first_data = data[0:lower_upper]
-    last_data = data[upper_upper:]
-    first_classes = classes[0:lower_upper]
-    last_classes = classes[upper_upper:]
-    data = np.vstack((first_data, last_data))
-    classes = np.append(first_classes, last_classes)
-    # END DELETE
-
-    return data, classes
+from HW2.Utilities import get_x_and_y_datasets, plotter
 
 
 def knn_with_test_split(num_iterations=20):
@@ -52,11 +29,7 @@ def knn_with_test_split(num_iterations=20):
                                                                                      max(mean_errors)))
 
     mis_errors = [1 - x for x in mean_errors]
-    plt.plot(possible_ks, mis_errors)
-    plt.xlabel('K-Neighbors')
-    plt.ylabel('Misclassification Rate')
-    plt.title('KNN with Test Split')
-    plt.show()
+    plotter(possible_ks, mis_errors, 'K-Neighbors', 'Misclassification Rate', 'KNN with Test Split')
 
 
 def knn_with_cross_fold_validation(num_iterations=1):
@@ -80,11 +53,8 @@ def knn_with_cross_fold_validation(num_iterations=1):
                                                                                      max(mean_cv_errors)))
 
     inverse_errors = [1 - x for x in mean_cv_errors]
-    plt.plot(possible_ks, inverse_errors)
-    plt.xlabel('Number of Neighbors K')
-    plt.ylabel('Misclassification Error')
-    plt.title('KNN with Cross Fold Validation')
-    plt.show()
+    plotter(possible_ks, inverse_errors, 'Number of Neighbors K', 'Misclassification Rate', 'KNN with Cross Fold '
+                                                                                            'Validation')
 
 
 if __name__ == '__main__':
