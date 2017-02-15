@@ -1,3 +1,7 @@
+import sys
+
+print(sys.path)
+
 from HW2.KNN_Radiation_Detection import knn_with_test_split, knn_with_cross_fold_validation
 from HW2.LDA_Radiation_Detection import lda
 from HW2.Naive_Bayes_RD import naive_bayes
