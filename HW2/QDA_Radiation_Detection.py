@@ -20,7 +20,3 @@ def qda(num_iterations=20):
 
     avg_score = np.array(scores).mean()
     print("The success rate with QDA after {0} iterations was {1}%".format(num_iterations, avg_score * 100))
-
-
-if __name__ == '__main__':
-    qda()

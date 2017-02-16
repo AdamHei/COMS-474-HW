@@ -56,13 +56,13 @@ def shuffle(data, classes):
         classes[i] = ctemp
 
 
-def plotter(x_set, y_set, x_lab, y_lab, title):
+def plotter(x_set, y_set, x_lab, y_lab, title, iterations):
     plt.plot(x_set, y_set)
     plt.xlabel(x_lab)
     plt.ylabel(y_lab)
-    plt.title(title)
+    plt.title("{0} with {1} iterations".format(title, iterations))
     plt.savefig("/home/tesla/PycharmProjects/474-HW/HW2/{0}".format(title))
-    # plt.show()
+    plt.show()
 
 
 if __name__ == '__main__':

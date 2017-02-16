@@ -31,7 +31,7 @@ def knn_with_test_split(num_iterations=20):
                                                                                      max(mean_errors)))
 
     mis_errors = [1 - x for x in mean_errors]
-    plotter(possible_ks, mis_errors, 'K-Neighbors', 'Misclassification Rate', 'KNN with Test Split')
+    plotter(possible_ks, mis_errors, 'K-Neighbors', 'Misclassification Rate', 'KNN with Test Split', num_iterations)
     print("That took {0} seconds".format(time.time() - start))
 
 
@@ -58,10 +58,6 @@ def knn_with_cross_fold_validation(num_iterations=1):
 
     inverse_errors = [1 - x for x in mean_cv_errors]
     plotter(possible_ks, inverse_errors, 'Number of Neighbors K', 'Misclassification Rate', 'KNN with Cross Fold '
-                                                                                            'Validation')
+                                                                                            'Validation',
+            num_iterations)
     print("That took {0} seconds".format(time.time() - start))
-
-
-if __name__ == '__main__':
-    # knn_with_test_split(num_iterations=50)
-    knn_with_cross_fold_validation(num_iterations=100)
