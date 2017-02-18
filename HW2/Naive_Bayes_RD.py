@@ -1,7 +1,7 @@
 import numpy as np
-from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
 
 from HW2.Utilities import get_x_and_y_datasets
 

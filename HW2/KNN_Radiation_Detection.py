@@ -1,10 +1,14 @@
+import time
+
 import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.neighbors import KNeighborsClassifier
-import time
 
 from HW2.Utilities import get_x_and_y_datasets, plotter
+
+
+# Class for testing KNN with the suggested Test/Train data split and 10-fold cross validation
 
 
 def knn_with_test_split(num_iterations=20):
@@ -27,11 +31,16 @@ def knn_with_test_split(num_iterations=20):
     mean_errors = [arr.mean() for arr in scores]
     maximum = max(mean_errors)
     index = mean_errors.index(maximum)
-    print('The best k with {0} iterations was {1} with a success rate of {2}'.format(num_iterations, possible_ks[index],
-                                                                                     max(mean_errors)))
+    print('The best k with {0} iterations was {1} with a success rate of {2}%'.format(num_iterations, possible_ks[index]
+                                                                                      , max(mean_errors) * 100))
 
     mis_errors = [1 - x for x in mean_errors]
-    plotter(possible_ks, mis_errors, 'K-Neighbors', 'Misclassification Rate', 'KNN with Test Split', num_iterations)
+    plotter(possible_ks,
+            mis_errors,
+            'K-Neighbors',
+            'Misclassification Rate',
+            'KNN with Test Split (best k={0})'.format(possible_ks[index]),
+            num_iterations)
     print("That took {0} seconds".format(time.time() - start))
 
 
@@ -53,11 +62,15 @@ def knn_with_cross_fold_validation(num_iterations=1):
     index = mean_cv_errors.index(maximum)
 
     optimal_k = possible_ks[index]
-    print('The best k with {0} iterations was {1} with a success rate of {2}'.format(num_iterations, optimal_k,
-                                                                                     max(mean_cv_errors)))
+    print('The best k with {0} iterations was {1} with a success rate of {2}%'.format(num_iterations, optimal_k,
+                                                                                      max(mean_cv_errors) * 100))
 
     inverse_errors = [1 - x for x in mean_cv_errors]
-    plotter(possible_ks, inverse_errors, 'Number of Neighbors K', 'Misclassification Rate', 'KNN with Cross Fold '
-                                                                                            'Validation',
+    plotter(possible_ks,
+            inverse_errors,
+            'Number of Neighbors K',
+            'Misclassification Rate',
+            'KNN with Cross Fold Validation (Best k={0})'.format(possible_ks[index]),
             num_iterations)
+
     print("That took {0} seconds".format(time.time() - start))
